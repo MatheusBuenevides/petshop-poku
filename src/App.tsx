@@ -1,15 +1,13 @@
-import './App.css'
+// src/App.tsx
+import React from 'react';
+import FormPetShop from './components/FormPetShop';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-      </div>
-    </>
-  )
-}
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <FormPetShop />
+    </div>
+  );
+};
 
-export default App
+export default App;
