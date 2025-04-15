@@ -1,24 +1,40 @@
 // src/components/FormPetShop.tsx
 import React, { useState, FormEvent } from 'react';
+import AppointmentService from '../services/AppointmentService';
 
 const FormPetShop: React.FC = () => {
   const [especie, setEspecie] = useState<string>('');
   const [data, setData] = useState<string>('');
   const [autorizacaoIbama, setAutorizacaoIbama] = useState<boolean>(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aqui você pode realizar validações ou enviar os dados para um back-end
-    alert(`Espécie: ${especie}\nData: ${data}\nAutorização IBAMA: ${autorizacaoIbama ? 'Sim' : 'Não'}`);
+
+    // Chama o serviço de validação
+    const { allowed, reason } = await AppointmentService.validateAppointment(
+      especie,
+      data,
+      autorizacaoIbama
+    );
+
+    // Se não for permitido, exibe a razão e interrompe
+    if (!allowed) {
+      alert(`Agendamento bloqueado: ${reason}`);
+      return;
+    }
+
+    // Se for permitido, prossiga com a lógica normal (ex: envio a back-end)
+    alert(`Agendamento válido. Espécie: ${especie}, Data: ${data}`);
+    // ...
   };
 
   return (
-    <form 
-      onSubmit={handleSubmit} 
+    <form
+      onSubmit={handleSubmit}
       className="mx-auto w-full max-w-sm p-4 bg-white shadow-md rounded"
     >
       <h1 className="text-2xl font-bold mb-4">PetShop Poku</h1>
-      
+
       <label htmlFor="especie" className="block mb-2 font-medium text-gray-700">
         Espécie
       </label>
@@ -26,7 +42,7 @@ const FormPetShop: React.FC = () => {
         id="especie"
         type="text"
         placeholder="Ex: cachorro, gato, jacaré"
-        className="block w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+        className="block w-full mb-4 px-3 py-2 border rounded"
         value={especie}
         onChange={(e) => setEspecie(e.target.value)}
       />
@@ -37,7 +53,7 @@ const FormPetShop: React.FC = () => {
       <input
         id="data"
         type="date"
-        className="block w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+        className="block w-full mb-4 px-3 py-2 border rounded"
         value={data}
         onChange={(e) => setData(e.target.value)}
       />
