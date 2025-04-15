@@ -29,12 +29,12 @@ const FormPetShop: React.FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <form 
+      onSubmit={handleSubmit} 
       className="mx-auto w-full max-w-sm p-4 bg-white shadow-md rounded"
     >
       <h1 className="text-2xl font-bold mb-4">PetShop Poku</h1>
-
+      
       <label htmlFor="especie" className="block mb-2 font-medium text-gray-700">
         Espécie
       </label>
@@ -42,7 +42,7 @@ const FormPetShop: React.FC = () => {
         id="especie"
         type="text"
         placeholder="Ex: cachorro, gato, jacaré"
-        className="block w-full mb-4 px-3 py-2 border rounded"
+        className="block w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
         value={especie}
         onChange={(e) => setEspecie(e.target.value)}
       />
@@ -53,7 +53,7 @@ const FormPetShop: React.FC = () => {
       <input
         id="data"
         type="date"
-        className="block w-full mb-4 px-3 py-2 border rounded"
+        className="block w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
         value={data}
         onChange={(e) => setData(e.target.value)}
       />
