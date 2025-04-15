@@ -1,11 +1,13 @@
 // src/components/FormPetShop.tsx
 import React, { useState, FormEvent } from 'react';
 import AppointmentService from '../services/AppointmentService';
+import { ToastContainer, toast,  Slide} from 'react-toastify';
 
 const FormPetShop: React.FC = () => {
   const [especie, setEspecie] = useState<string>('');
   const [data, setData] = useState<string>('');
   const [autorizacaoIbama, setAutorizacaoIbama] = useState<boolean>(false);
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,12 +21,28 @@ const FormPetShop: React.FC = () => {
 
     // Se não for permitido, exibe a razão e interrompe
     if (!allowed) {
-      alert(`Agendamento bloqueado: ${reason}`);
+      toast.error(
+        `Agendamento bloqueado:!  ${reason}`,
+        {
+          position: "bottom-center",
+          theme: "dark",
+          pauseOnHover: false,
+          transition: Slide
+        }
+      );
       return;
     }
 
     // Se for permitido, prossiga com a lógica normal (ex: envio a back-end)
-    alert(`Agendamento válido. Espécie: ${especie}, Data: ${data}`);
+    toast.success(
+      `Agendamento válido. Espécie: ${especie}, Data: ${data}`,
+      {
+        position: "bottom-center",
+        theme: "dark",
+        pauseOnHover: false,
+        transition: Slide
+      }
+    );
     // ...
   };
 
@@ -77,6 +95,12 @@ const FormPetShop: React.FC = () => {
       >
         Validar Agendamento
       </button>
+      <ToastContainer 
+        position="bottom-center"
+        theme="dark"
+        pauseOnFocusLoss={false}
+        transition={Slide}
+      />
     </form>
   );
 };

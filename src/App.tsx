@@ -1,6 +1,7 @@
 // src/App.tsx
 import React from 'react';
 import FormPetShop from './components/FormPetShop';
+import './index.css'
 
 const App: React.FC = () => {
   return (
