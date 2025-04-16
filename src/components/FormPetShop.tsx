@@ -1,4 +1,3 @@
-// src/components/FormPetShop.tsx
 import React, { useState, FormEvent } from 'react';
 import AppointmentService from '../services/AppointmentService';
 import { ToastContainer, toast,  Slide} from 'react-toastify';
@@ -8,18 +7,15 @@ const FormPetShop: React.FC = () => {
   const [data, setData] = useState<string>('');
   const [autorizacaoIbama, setAutorizacaoIbama] = useState<boolean>(false);
 
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Chama o serviço de validação
     const { allowed, reason } = await AppointmentService.validateAppointment(
       especie,
       data,
       autorizacaoIbama
     );
 
-    // Se não for permitido, exibe a razão e interrompe
     if (!allowed) {
       toast.error(
         `Agendamento bloqueado:!  ${reason}`,
@@ -33,7 +29,6 @@ const FormPetShop: React.FC = () => {
       return;
     }
 
-    // Se for permitido, prossiga com a lógica normal (ex: envio a back-end)
     toast.success(
       `Agendamento válido. Espécie: ${especie}, Data: ${data}`,
       {
@@ -43,7 +38,6 @@ const FormPetShop: React.FC = () => {
         transition: Slide
       }
     );
-    // ...
   };
 
   return (
